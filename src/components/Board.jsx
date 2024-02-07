@@ -41,7 +41,7 @@ export default function Board() {
   }
 
   function openModal(number) {
-    console.log('in modal', isOneSelected, number)
+    console.log("in modal", isOneSelected, number);
     if (isOneSelected) {
       return;
     }
@@ -61,10 +61,8 @@ export default function Board() {
     setIsOneSelected(false);
   }
 
-
-
   function handleCellClick(number) {
-    console.log(number)
+    console.log(number);
     if (xCells.length === 0 && oCells.length === 0) {
       openModal(number);
     } else {
