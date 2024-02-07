@@ -1,5 +1,5 @@
 import { useState } from "react";
-import Victory from "./Victory";
+import Results from "./Results";
 import Cell from "./Cell";
 import { VICTORY_PATTERNS } from "../utils/victoryPatterns";
 
@@ -13,7 +13,7 @@ export default function Board() {
   const [winner, setWinner] = useState(undefined);
   const [xCells, setXCells] = useState([]);
   const [oCells, setOCells] = useState([]);
-  const [xLastPlayed, setXlastPlayed] = useState(undefined)
+  const [xLastPlayed, setXlastPlayed] = useState(undefined);
 
   function checkWin(potentialWinner, correspondingCells) {
     for (const pattern of VICTORY_PATTERNS) {
@@ -32,18 +32,18 @@ export default function Board() {
     }
   }
 
-  function handleReset () {
-    setXCells([])
-    setOCells([])
-    setWinner(undefined)
-    setIsOneSelected(false)
-    setSelectedCell(0)
+  function handleReset() {
+    setXCells([]);
+    setOCells([]);
+    setWinner(undefined);
+    setIsOneSelected(false);
+    setSelectedCell(0);
   }
 
   return (
     <div className="game-board">
-      {winner ? (
-        <Victory winner={winner} />
+      {winner || xCells.length + oCells.length === cells.length ? (
+        <Results winner={winner} />
       ) : (
         cells.map((cell) => (
           <Cell
@@ -62,7 +62,9 @@ export default function Board() {
           />
         ))
       )}
-      <button onClick={() => handleReset()}>{winner ? 'Play again' : 'Reset'}</button>
+      <button onClick={() => handleReset()}>
+        {winner ? "Play again" : "Reset"}
+      </button>
     </div>
   );
 }
