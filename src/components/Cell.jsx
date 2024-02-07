@@ -1,4 +1,3 @@
-import { useState } from "react";
 import SelectionModal from "./SelectionModal";
 import "../Globals.css";
 
@@ -14,9 +13,9 @@ export default function Cell({
   setOCells,
   checkWin,
 }) {
-  const [isFilled, setIsFilled] = useState(false);
 
   const isX = xCells.includes(number);
+  const isFilled = isX || oCells.includes(number);
 
   function handleOpenModal() {
     if (isOneSelected || isFilled) {
@@ -36,7 +35,6 @@ export default function Cell({
       setOCells(nextCells);
       checkWin("O", nextCells);
     }
-    setIsFilled(true);
     setIsOneSelected(false);
   }
 

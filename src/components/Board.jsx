@@ -31,6 +31,15 @@ export default function Board() {
     }
   }
 
+  function handleReset () {
+    setXCells([])
+    setOCells([])
+    setWinner(undefined)
+    setIsOneSelected(false)
+    setSelectedCell(0)
+    console.log(xCells, oCells)
+  }
+
   return (
     <div className="game-board">
       {winner ? (
@@ -51,6 +60,7 @@ export default function Board() {
           />
         ))
       )}
+      <button onClick={() => handleReset()}>{winner ? 'Play again' : 'Reset'}</button>
     </div>
   );
 }
