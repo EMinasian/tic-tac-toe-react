@@ -1,8 +1,37 @@
 import { useState } from "react";
-import '../Globals.css'
+import SelectionModal from "./SelectionModal";
+import "../Globals.css";
 
-export default function Cell() {
+export default function Cell({
+  number,
+  isOneSelected,
+  setIsOneSelected,
+  selectedCell,
+  setSelectedCell,
+}) {
   const [isFilled, setIsFilled] = useState(false);
   const [isX, setIsX] = useState(false);
-  return <div className="board-cell">{isFilled && (isX ? "X" : "O")}</div>;
+
+  function handleSelection() {
+    if (isOneSelected || isFilled) {
+      return;
+    }
+    setSelectedCell(number);
+    setIsOneSelected(true);
+  }
+  return (
+    <>
+      {isOneSelected && selectedCell === number ? (
+        <SelectionModal
+          setIsFilled={setIsFilled}
+          setIsX={setIsX}
+          setIsOneSelected={setIsOneSelected}
+        />
+      ) : (
+        <div className="board-cell" onClick={handleSelection}>
+          {isFilled && (isX ? "X" : "O")}
+        </div>
+      )}
+    </>
+  );
 }

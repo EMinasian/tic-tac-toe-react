@@ -1,14 +1,51 @@
 .board-cell {
-    width: 160px;
-    height: 160px;
-    border: 2px solid brown;
-    background-color: burlywood;
+    display: flex;
+    flex-direction: column;
+  width: 160px;
+  height: 160px;
+  border: 2px solid #474f7a;
+  background-color: #e8c872;
+  font-size: 66px;
+  color: #092635;
+  align-items: center;
+  justify-content: center;
 }
 
 .game-board {
-    border: 2px solid black;
-    padding: 2px;
-    width: fit-content;
-    display: grid;
-    grid-template-columns: auto auto auto;
+  background-color: #fff3cf;
+  border: 2px solid #0c2d57;
+  padding: 2px;
+  width: fit-content;
+  display: grid;
+  grid-template-columns: auto auto auto;
+}
+
+.selection-modal {
+  background-color: #c9d7dd;
+  border: 2px solid #0c2d57;
+  display: flex;
+  flex-direction: column;
+}
+
+#x-button {
+  background-color: #0c2d57;
+}
+
+#o-button {
+  background-color: #fc6736;
+}
+
+#cancel-button {
+  background-color: red;
+  font-size: 16px;
+}
+
+button {
+  padding: 10px;
+  font-size: 20px;
+  margin: 10px;
+  min-width: 50px;
+  border-radius: 10px;
+  color: beige;
+  border: none;
 }
