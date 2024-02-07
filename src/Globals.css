@@ -1,0 +1,14 @@
+.board-cell {
+    width: 160px;
+    height: 160px;
+    border: 2px solid brown;
+    background-color: burlywood;
+}
+
+.game-board {
+    border: 2px solid black;
+    padding: 2px;
+    width: fit-content;
+    display: grid;
+    grid-template-columns: auto auto auto;
+}
