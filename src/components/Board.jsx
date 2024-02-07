@@ -40,6 +40,38 @@ export default function Board() {
     setSelectedCell(0);
   }
 
+  function openModal(number) {
+    console.log('in modal', isOneSelected, number)
+    if (isOneSelected) {
+      return;
+    }
+    setSelectedCell(number);
+    setIsOneSelected(true);
+  }
+
+  function handleSelection(value, number) {
+    const nextCells = [...(value === "X" ? xCells : oCells), number];
+    if (value === "X") {
+      setXCells(nextCells);
+    } else {
+      setOCells(nextCells);
+    }
+    checkWin(value, nextCells);
+    setXlastPlayed(value === "X");
+    setIsOneSelected(false);
+  }
+
+
+
+  function handleCellClick(number) {
+    console.log(number)
+    if (xCells.length === 0 && oCells.length === 0) {
+      openModal(number);
+    } else {
+      handleSelection(xLastPlayed ? "O" : "X", number);
+    }
+  }
+
   return (
     <div className="game-board">
       {winner || xCells.length + oCells.length === cells.length ? (
@@ -51,14 +83,10 @@ export default function Board() {
             isOneSelected={isOneSelected}
             setIsOneSelected={setIsOneSelected}
             selectedCell={selectedCell}
-            setSelectedCell={setSelectedCell}
             xCells={xCells}
-            setXCells={setXCells}
             oCells={oCells}
-            setOCells={setOCells}
-            checkWin={checkWin}
-            xLastPlayed={xLastPlayed}
-            setXLastPlayed={setXlastPlayed}
+            handleCellClick={handleCellClick}
+            handleSelection={handleSelection}
           />
         ))
       )}

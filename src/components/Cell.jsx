@@ -6,45 +6,13 @@ export default function Cell({
   isOneSelected,
   setIsOneSelected,
   selectedCell,
-  setSelectedCell,
   xCells,
-  setXCells,
   oCells,
-  setOCells,
-  checkWin,
-  xLastPlayed,
-  setXLastPlayed,
+  handleCellClick,
+  handleSelection,
 }) {
   const isX = xCells.includes(number);
   const isFilled = isX || oCells.includes(number);
-
-  function openModal() {
-    if (isOneSelected || isFilled) {
-      return;
-    }
-    setSelectedCell(number);
-    setIsOneSelected(true);
-  }
-
-  function handleSelection(value) {
-    const nextCells = [...(value === "X" ? xCells : oCells), number];
-    if (value === "X") {
-      setXCells(nextCells);
-    } else {
-      setOCells(nextCells);
-    }
-    checkWin(value, nextCells);
-    setXLastPlayed(value === "X");
-    setIsOneSelected(false);
-  }
-
-  function handleCellClick() {
-    if (xCells.length === 0 && oCells.length === 0) {
-      openModal();
-    } else {
-      handleSelection(xLastPlayed ? "O" : "X");
-    }
-  }
 
   return (
     <>
@@ -52,9 +20,10 @@ export default function Cell({
         <SelectionModal
           setIsOneSelected={setIsOneSelected}
           handleSelection={handleSelection}
+          number={number}
         />
       ) : (
-        <div className="board-cell" onClick={handleCellClick}>
+        <div className="board-cell" onClick={() => handleCellClick(number)}>
           {isFilled && (isX ? "X" : "O")}
         </div>
       )}
