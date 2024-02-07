@@ -12,12 +12,13 @@ export default function Cell({
   oCells,
   setOCells,
   checkWin,
+  xLastPlayed,
+  setXLastPlayed,
 }) {
-
   const isX = xCells.includes(number);
   const isFilled = isX || oCells.includes(number);
 
-  function handleOpenModal() {
+  function openModal() {
     if (isOneSelected || isFilled) {
       return;
     }
@@ -30,12 +31,22 @@ export default function Cell({
       const nextCells = [...xCells, number];
       setXCells(nextCells);
       checkWin("X", nextCells);
+      setXLastPlayed(true);
     } else if (value === "O") {
       const nextCells = [...oCells, number];
       setOCells(nextCells);
       checkWin("O", nextCells);
+      setXLastPlayed(false);
     }
     setIsOneSelected(false);
+  }
+
+  function handleCellClick() {
+    if (xCells.length === 0 && oCells.length === 0) {
+      openModal();
+    } else {
+      handleSelection(xLastPlayed ? "O" : "X");
+    }
   }
 
   return (
@@ -46,7 +57,7 @@ export default function Cell({
           handleSelection={handleSelection}
         />
       ) : (
-        <div className="board-cell" onClick={handleOpenModal}>
+        <div className="board-cell" onClick={handleCellClick}>
           {isFilled && (isX ? "X" : "O")}
         </div>
       )}

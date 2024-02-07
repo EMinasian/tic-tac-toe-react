@@ -13,6 +13,7 @@ export default function Board() {
   const [winner, setWinner] = useState(undefined);
   const [xCells, setXCells] = useState([]);
   const [oCells, setOCells] = useState([]);
+  const [xLastPlayed, setXlastPlayed] = useState(undefined)
 
   function checkWin(potentialWinner, correspondingCells) {
     for (const pattern of VICTORY_PATTERNS) {
@@ -37,7 +38,6 @@ export default function Board() {
     setWinner(undefined)
     setIsOneSelected(false)
     setSelectedCell(0)
-    console.log(xCells, oCells)
   }
 
   return (
@@ -57,6 +57,8 @@ export default function Board() {
             oCells={oCells}
             setOCells={setOCells}
             checkWin={checkWin}
+            xLastPlayed={xLastPlayed}
+            setXLastPlayed={setXlastPlayed}
           />
         ))
       )}
