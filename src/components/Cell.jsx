@@ -27,17 +27,14 @@ export default function Cell({
   }
 
   function handleSelection(value) {
+    const nextCells = [...(value === "X" ? xCells : oCells), number];
     if (value === "X") {
-      const nextCells = [...xCells, number];
       setXCells(nextCells);
-      checkWin("X", nextCells);
-      setXLastPlayed(true);
-    } else if (value === "O") {
-      const nextCells = [...oCells, number];
+    } else {
       setOCells(nextCells);
-      checkWin("O", nextCells);
-      setXLastPlayed(false);
     }
+    checkWin(value, nextCells);
+    setXLastPlayed(value === "X");
     setIsOneSelected(false);
   }
 
