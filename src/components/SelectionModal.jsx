@@ -1,26 +1,14 @@
 
 import '../Globals.css'
 
-export default function SelectionModal({ setIsOneSelected, setIsX, setIsFilled }) {
-
-  function handleX() {
-    setIsX(true)
-    setIsFilled(true)
-    setIsOneSelected(false)
-  }
-
-  function handleO() {
-    setIsX(false)
-    setIsFilled(true)
-    setIsOneSelected(false)
-  }
+export default function SelectionModal({ setIsOneSelected, handleSelection }) {
 
   return (
     <div className="selection-modal">
       <div>
-        <button id='x-button' onClick={handleX}>X</button>
+        <button id='x-button' onClick={() => handleSelection('X')}>X</button>
         or
-        <button id='o-button' onClick={handleO}>O</button>
+        <button id='o-button' onClick={() => handleSelection('O')}>O</button>
       </div>
       <button id='cancel-button' onClick={() => setIsOneSelected(false)}>Cancel</button>
     </div>
