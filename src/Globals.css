@@ -51,3 +51,25 @@ button {
   border: none;
   cursor: pointer;
 }
+
+h1 {
+  color: #0c2d57;
+  font-size: 42px;
+}
+
+header {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+}
+
+#logo-img {
+  max-width: 100px;
+  padding: 10px;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
