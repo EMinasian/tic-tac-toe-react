@@ -1,10 +1,18 @@
-import Board from './components/Board'
+import Player from "./components/Player";
+import Board from "./components/Board";
+
+import './Globals.css'
 
 function App() {
-
   return (
-    <Board />
-  )
+    <>
+      <div id="players-section">
+        <Player />
+        <Player />
+      </div>
+      <Board />
+    </>
+  );
 }
 
-export default App
+export default App;
