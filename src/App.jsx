@@ -1,6 +1,7 @@
 import { useState } from "react";
 import Player from "./components/Player";
 import Board from "./components/Board";
+import Results from "./components/Results";
 import { BoardContextProvider } from "./contexts/BoardContext";
 import { CELLS, VICTORY_PATTERNS } from "./utils/constants";
 
@@ -13,8 +14,6 @@ function App() {
   const [xLastPlayed, setXlastPlayed] = useState(undefined);
   const [isOneSelected, setIsOneSelected] = useState(false);
   const [selectedCell, setSelectedCell] = useState(0);
-
-  
 
   function checkWin(potentialWinner, correspondingCells) {
     for (const pattern of VICTORY_PATTERNS) {
@@ -74,12 +73,21 @@ function App() {
       <div id="players-section">
         <Player />
         <Player />
-        {winner ||
-          (xCells.length + oCells.length === CELLS.length && (
-            <Results winner={winner} />
-          ))}
       </div>
-      <BoardContextProvider value={{handleCellClick, handleSelection, xCells, oCells, setIsOneSelected, isOneSelected, selectedCell}}>
+      {(winner || xCells.length + oCells.length === CELLS.length) && (
+        <Results winner={winner} />
+      )}
+      <BoardContextProvider
+        value={{
+          handleCellClick,
+          handleSelection,
+          xCells,
+          oCells,
+          setIsOneSelected,
+          isOneSelected,
+          selectedCell,
+        }}
+      >
         <Board />
       </BoardContextProvider>
       <button onClick={() => handleReset()}>
