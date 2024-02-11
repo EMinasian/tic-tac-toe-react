@@ -101,3 +101,24 @@ body {
   font-weight: 600;
   color: #2E4374;
 }
+
+#result-table {
+  background-color: #F6FDC3;
+  width: 500px;
+  color: #0c2d57;
+  font-weight: 600;
+  font-size: 16px;
+  padding: 10px;
+  border: 2px solid #474f7a;
+  border-radius: 10px;
+}
+
+.winner-marks {
+  width: 40px;
+  padding: 10px;
+}
+
+#game-section {
+  display: flex;
+  flex-direction: row;
+}
