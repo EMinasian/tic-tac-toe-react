@@ -1,9 +1,7 @@
 import { useState } from "react";
 import Results from "./Results";
 import Cell from "./Cell";
-import { VICTORY_PATTERNS } from "../utils/victoryPatterns";
-
-const cells = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+import { CELLS, VICTORY_PATTERNS } from "../utils/constants";
 
 import "../Globals.css";
 
@@ -70,10 +68,10 @@ export default function Board() {
 
   return (
     <div className="game-board">
-      {winner || xCells.length + oCells.length === cells.length ? (
+      {winner || xCells.length + oCells.length === CELLS.length ? (
         <Results winner={winner} />
       ) : (
-        cells.map((cell) => (
+        CELLS.map((cell) => (
           <Cell
             number={cell}
             isOneSelected={isOneSelected}
