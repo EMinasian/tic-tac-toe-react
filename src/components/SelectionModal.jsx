@@ -1,7 +1,12 @@
 
+import { useContext } from 'react';
+import { boardContext } from '../contexts/BoardContext';
+
 import '../Globals.css'
 
-export default function SelectionModal({ setIsOneSelected, handleSelection, number }) {
+export default function SelectionModal({ number }) {
+
+  const { handleSelection, setIsOneSelected } = useContext(boardContext)
 
   return (
     <div className="selection-modal">
