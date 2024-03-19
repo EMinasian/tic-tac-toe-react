@@ -1,6 +1,11 @@
+.active-player {
+  border: 2px solid #A0153E;
+  border-radius: 10px;
+}
+
 .board-cell {
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
   width: 160px;
   height: 160px;
   border: 2px solid #474f7a;
@@ -83,7 +88,7 @@ body {
 }
 
 .player-name {
-  width: 150px
+  width: 150px;
 }
 
 #player-name-display {
@@ -99,11 +104,11 @@ body {
   padding: 10px;
   font-size: 18px;
   font-weight: 600;
-  color: #2E4374;
+  color: #2e4374;
 }
 
 #result-table {
-  background-color: #F6FDC3;
+  background-color: #f6fdc3;
   width: 500px;
   color: #0c2d57;
   font-weight: 600;

@@ -13,8 +13,10 @@ function App() {
   const [xCells, setXCells] = useState([]);
   const [oCells, setOCells] = useState([]);
   const [xLastPlayed, setXlastPlayed] = useState(undefined);
+  const [activePlayer, setActivePlayer] = useState(0);
   const [isOneSelected, setIsOneSelected] = useState(false);
   const [selectedCell, setSelectedCell] = useState(0);
+  const [players, setPlayers] = useState(["", ""]);
 
   function checkWin(potentialWinner, correspondingCells) {
     for (const pattern of VICTORY_PATTERNS) {
@@ -51,6 +53,7 @@ function App() {
     checkWin(value, nextCells);
     setXlastPlayed(value === "X");
     setIsOneSelected(false);
+    setActivePlayer((current) => (current === 0 ? 1 : 0));
   }
 
   function handleCellClick(number) {
@@ -61,21 +64,33 @@ function App() {
     }
   }
 
-  function handleReset() {
+  function handleNewGame() {
     setXCells([]);
     setOCells([]);
     setWinner(undefined);
     setIsOneSelected(false);
     setSelectedCell(0);
+    setActivePlayer(0);
+  }
+
+  function handleReset() {
+    handleNewGame();
+    setPlayers(["", ""]);
   }
 
   return (
     <div id="game-section">
       <div>
-        <div id="players-section">
-          <Player />
-          <Player />
-        </div>
+        <ul id="players-section">
+          {players.map((player, playerKey) => (
+            <Player
+              player={player}
+              setPlayers={setPlayers}
+              playerKey={playerKey}
+              activePlayer={activePlayer}
+            />
+          ))}
+        </ul>
         {(winner || xCells.length + oCells.length === CELLS.length) && (
           <Results winner={winner} />
         )}
@@ -92,9 +107,10 @@ function App() {
         >
           <Board />
         </BoardContextProvider>
-        <button onClick={() => handleReset()}>
-          {winner ? "Play again" : "Reset"}
+        <button onClick={() => handleNewGame()}>
+          {winner ? "Play again" : "Start again"}
         </button>
+        <button onClick={() => handleReset()}>Reset</button>
       </div>
       <ResultsBoard />
     </div>

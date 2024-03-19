@@ -1,30 +1,37 @@
 import { useState, useRef } from "react";
 
-export default function Player() {
+export default function Player({
+  player,
+  setPlayers,
+  playerKey,
+  activePlayer,
+}) {
   const [isEditing, setIsEditing] = useState(false);
-  const [playerName, setPlayerName] = useState(undefined);
 
   const inputRef = useRef();
 
-  function handleSave() {
-    setPlayerName(inputRef.current.value);
+  function handleSave(e) {
+    e.preventDefault();
+    setPlayers((prevPlayers) => {
+      const newPlayers = [...prevPlayers];
+      newPlayers[playerKey] = inputRef.current.value;
+      return newPlayers;
+    });
     setIsEditing(false);
   }
 
   function handleEdit() {
-    setPlayerName(undefined);
     setIsEditing(true);
   }
 
   return (
-    <>
-      {isEditing || !playerName ? (
-        <form onSubmit={handleSave}>
+    <div className={activePlayer === playerKey && "active-player"}>
+      {isEditing || !player ? (
+        <form onSubmit={(e) => handleSave(e)}>
           <input
             ref={inputRef}
             type="text"
             placeholder="Insert Name"
-            value={playerName}
             required
             className="player-name"
           />
@@ -32,10 +39,12 @@ export default function Player() {
         </form>
       ) : (
         <>
-          <span className="player-name" id="player-name-display">{playerName}</span>
+          <span className="player-name" id="player-name-display">
+            {player}
+          </span>
           <button onClick={handleEdit}>Edit</button>
         </>
       )}
-    </>
+    </div>
   );
 }
