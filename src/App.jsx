@@ -14,8 +14,7 @@ function App() {
   const [oCells, setOCells] = useState([]);
   const [xLastPlayed, setXlastPlayed] = useState(undefined);
   const [activePlayer, setActivePlayer] = useState(0);
-  const [isOneSelected, setIsOneSelected] = useState(false);
-  const [selectedCell, setSelectedCell] = useState(0);
+  const [selectedCell, setSelectedCell] = useState(undefined);
   const [players, setPlayers] = useState(["", ""]);
 
   function checkWin(potentialWinner, correspondingCells) {
@@ -36,11 +35,10 @@ function App() {
   }
 
   function openModal(number) {
-    if (isOneSelected) {
+    if (typeof selectedCell === "number") {
       return;
     }
     setSelectedCell(number);
-    setIsOneSelected(true);
   }
 
   function handleSelection(value, number) {
@@ -52,7 +50,7 @@ function App() {
     }
     checkWin(value, nextCells);
     setXlastPlayed(value === "X");
-    setIsOneSelected(false);
+    setSelectedCell(undefined);
     setActivePlayer((current) => (current === 0 ? 1 : 0));
   }
 
@@ -68,8 +66,7 @@ function App() {
     setXCells([]);
     setOCells([]);
     setWinner(undefined);
-    setIsOneSelected(false);
-    setSelectedCell(0);
+    setSelectedCell(undefined);
     setActivePlayer(0);
   }
 
@@ -100,8 +97,7 @@ function App() {
             handleSelection,
             xCells,
             oCells,
-            setIsOneSelected,
-            isOneSelected,
+            setSelectedCell,
             selectedCell,
           }}
         >
