@@ -7,7 +7,7 @@ export default function Player({
   activePlayer,
 }) {
   const [isEditing, setIsEditing] = useState(false);
-  const { name, symbol } = player
+  const { name, symbol } = player;
 
   const inputRef = useRef();
 
@@ -15,7 +15,7 @@ export default function Player({
     e.preventDefault();
     setPlayers((prevPlayers) => {
       const newPlayers = [...prevPlayers];
-      newPlayers[playerKey] = inputRef.current.value;
+      newPlayers[playerKey].name = inputRef.current.value;
       return newPlayers;
     });
     setIsEditing(false);
@@ -39,12 +39,15 @@ export default function Player({
           <button type="submit">Save</button>
         </form>
       ) : (
-        <>
+        <div>
+          <span className="player-name" id="player-name-display">
+            {name}
+          </span>
           <span className="player-name" id="player-name-display">
             {symbol}
           </span>
           <button onClick={handleEdit}>Edit</button>
-        </>
+        </div>
       )}
     </div>
   );
