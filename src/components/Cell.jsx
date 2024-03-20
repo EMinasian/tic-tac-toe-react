@@ -4,10 +4,8 @@ import { boardContext } from "../contexts/BoardContext";
 import "../Globals.css";
 
 export default function Cell({ number }) {
-  const { handleCellClick, xCells, oCells, selectedCell } =
-    useContext(boardContext);
-  const isX = xCells.includes(number);
-  const isFilled = isX || oCells.includes(number);
+  const { handleCellClick, cells, selectedCell } = useContext(boardContext);
+  const symbol = cells.get(number);
 
   return (
     <>
@@ -15,7 +13,7 @@ export default function Cell({ number }) {
         <SelectionModal number={number} />
       ) : (
         <div className="board-cell" onClick={() => handleCellClick(number)}>
-          {isFilled && (isX ? "X" : "O")}
+          {symbol}
         </div>
       )}
     </>

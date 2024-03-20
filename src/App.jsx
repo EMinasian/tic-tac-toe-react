@@ -10,18 +10,17 @@ import "./Globals.css";
 
 function App() {
   const [winner, setWinner] = useState(undefined);
-  const [xCells, setXCells] = useState([]);
-  const [oCells, setOCells] = useState([]);
+  const [cells, setCells] = useState(new Map());
   const [xLastPlayed, setXlastPlayed] = useState(undefined);
   const [activePlayer, setActivePlayer] = useState(0);
   const [selectedCell, setSelectedCell] = useState(undefined);
   const [players, setPlayers] = useState(["", ""]);
 
-  function checkWin(potentialWinner, correspondingCells) {
+  function checkWin(potentialWinner, cells) {
     for (const pattern of VICTORY_PATTERNS) {
       let winner = true;
       for (const point of pattern) {
-        if (!correspondingCells.includes(point)) {
+        if (cells.get(point) !== potentialWinner) {
           winner = false;
           break;
         }
@@ -42,20 +41,19 @@ function App() {
   }
 
   function handleSelection(value, number) {
-    const nextCells = [...(value === "X" ? xCells : oCells), number];
-    if (value === "X") {
-      setXCells(nextCells);
-    } else {
-      setOCells(nextCells);
-    }
-    checkWin(value, nextCells);
+    setCells((prev) => {
+      const updatedMap = new Map(Array.from(prev));
+      updatedMap.set(number, value);
+      checkWin(value, updatedMap);
+      return updatedMap;
+    });
     setXlastPlayed(value === "X");
     setSelectedCell(undefined);
     setActivePlayer((current) => (current === 0 ? 1 : 0));
   }
 
   function handleCellClick(number) {
-    if (xCells.length === 0 && oCells.length === 0) {
+    if (cells.size === 0) {
       openModal(number);
     } else {
       handleSelection(xLastPlayed ? "O" : "X", number);
@@ -63,8 +61,7 @@ function App() {
   }
 
   function handleNewGame() {
-    setXCells([]);
-    setOCells([]);
+    setCells(new Map());
     setWinner(undefined);
     setSelectedCell(undefined);
     setActivePlayer(0);
@@ -88,15 +85,12 @@ function App() {
             />
           ))}
         </ul>
-        {(winner || xCells.length + oCells.length === CELLS.length) && (
-          <Results winner={winner} />
-        )}
+        {(winner || cells.size === CELLS.length) && <Results winner={winner} />}
         <BoardContextProvider
           value={{
             handleCellClick,
             handleSelection,
-            xCells,
-            oCells,
+            cells,
             setSelectedCell,
             selectedCell,
           }}
@@ -108,7 +102,7 @@ function App() {
         </button>
         <button onClick={() => handleReset()}>Reset</button>
       </div>
-      <ResultsBoard />
+      {/* <ResultsBoard /> */}
     </div>
   );
 }
