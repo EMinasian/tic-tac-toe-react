@@ -7,6 +7,7 @@ export default function Player({
   activePlayer,
 }) {
   const [isEditing, setIsEditing] = useState(false);
+  const { name, symbol } = player
 
   const inputRef = useRef();
 
@@ -26,7 +27,7 @@ export default function Player({
 
   return (
     <div className={activePlayer === playerKey && "active-player"}>
-      {isEditing || !player ? (
+      {isEditing || !name ? (
         <form onSubmit={(e) => handleSave(e)}>
           <input
             ref={inputRef}
@@ -40,7 +41,7 @@ export default function Player({
       ) : (
         <>
           <span className="player-name" id="player-name-display">
-            {player}
+            {symbol}
           </span>
           <button onClick={handleEdit}>Edit</button>
         </>

@@ -11,10 +11,9 @@ import "./Globals.css";
 function App() {
   const [winner, setWinner] = useState(undefined);
   const [cells, setCells] = useState(new Map());
-  const [xLastPlayed, setXlastPlayed] = useState(undefined);
   const [activePlayer, setActivePlayer] = useState(0);
   const [selectedCell, setSelectedCell] = useState(undefined);
-  const [players, setPlayers] = useState(["", ""]);
+  const [players, setPlayers] = useState([{ symbol: "" }, { symbol: "" }]);
 
   function checkWin(potentialWinner, cells) {
     for (const pattern of VICTORY_PATTERNS) {
@@ -41,22 +40,31 @@ function App() {
   }
 
   function handleSelection(value, number) {
+    if (!players[activePlayer]?.symbol) {
+      setPlayers((prev) => {
+        const updatedPlayers = [...prev];
+        updatedPlayers[activePlayer].symbol = value;
+        updatedPlayers[Number(activePlayer === 0)].symbol =
+          value === "X" ? "O" : "X";
+        return updatedPlayers;
+      });
+      players[activePlayer].symbol = value;
+    }
     setCells((prev) => {
       const updatedMap = new Map(Array.from(prev));
       updatedMap.set(number, value);
       checkWin(value, updatedMap);
       return updatedMap;
     });
-    setXlastPlayed(value === "X");
     setSelectedCell(undefined);
     setActivePlayer((current) => (current === 0 ? 1 : 0));
   }
 
   function handleCellClick(number) {
-    if (cells.size === 0) {
+    if (!players[activePlayer]?.symbol) {
       openModal(number);
     } else {
-      handleSelection(xLastPlayed ? "O" : "X", number);
+      handleSelection(players[activePlayer]?.symbol, number);
     }
   }
 
@@ -69,7 +77,7 @@ function App() {
 
   function handleReset() {
     handleNewGame();
-    setPlayers(["", ""]);
+    setPlayers([{ symbol: "" }, { symbol: "" }]);
   }
 
   return (
