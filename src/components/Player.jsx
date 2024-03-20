@@ -27,6 +27,9 @@ export default function Player({
 
   return (
     <div className={activePlayer === playerKey && "active-player"}>
+      <span className="player-name" id="player-name-display">
+        {symbol}
+      </span>
       {isEditing || !name ? (
         <form onSubmit={(e) => handleSave(e)}>
           <input
@@ -43,10 +46,8 @@ export default function Player({
           <span className="player-name" id="player-name-display">
             {name}
           </span>
-          <span className="player-name" id="player-name-display">
-            {symbol}
-          </span>
-          <button onClick={handleEdit}>Edit</button>
+
+          <button onClick={handleEdit}>Edit name</button>
         </div>
       )}
     </div>
