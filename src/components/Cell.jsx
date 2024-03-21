@@ -12,9 +12,13 @@ export default function Cell({ number }) {
       {selectedCell === number ? (
         <SelectionModal number={number} />
       ) : (
-        <div className="board-cell" onClick={() => handleCellClick(number)}>
+        <button
+          className="board-cell"
+          onClick={() => handleCellClick(number)}
+          disabled={symbol !== undefined}
+        >
           {symbol}
-        </div>
+        </button>
       )}
     </>
   );
