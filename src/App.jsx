@@ -64,7 +64,9 @@ function App() {
   }
 
   function handleCellClick(number) {
-    if (!players[activePlayer]?.symbol) {
+    if (winner) {
+      return;
+    } else if (!players[activePlayer]?.symbol) {
       openModal(number);
     } else {
       handleSelection(players[activePlayer]?.symbol, number);
