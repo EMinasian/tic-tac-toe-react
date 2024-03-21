@@ -18,7 +18,8 @@ function App() {
     { name: "", symbol: "" },
   ]);
 
-  function checkWin(potentialWinner, cells) {
+  function checkWin(potentialWinner, cells, cell) {
+    cells.set(cell, potentialWinner);
     for (const pattern of VICTORY_PATTERNS) {
       let winner = true;
       for (const point of pattern) {
@@ -56,9 +57,9 @@ function App() {
     setCells((prev) => {
       const updatedMap = new Map(Array.from(prev));
       updatedMap.set(number, value);
-      checkWin(value, updatedMap);
       return updatedMap;
     });
+    checkWin(value, cells, number);
     setSelectedCell(undefined);
     setActivePlayer((current) => (current === 0 ? 1 : 0));
   }
