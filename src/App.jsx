@@ -8,8 +8,9 @@ import { CELLS, VICTORY_PATTERNS } from "./utils/constants";
 
 import "./Globals.css";
 
+let winner;
+
 function App() {
-  const [winner, setWinner] = useState(undefined);
   const [cells, setCells] = useState(new Map());
   const [activePlayer, setActivePlayer] = useState(0);
   const [selectedCell, setSelectedCell] = useState(undefined);
@@ -18,19 +19,19 @@ function App() {
     { name: "", symbol: "" },
   ]);
 
-  function checkWin(potentialWinner, cells, cell) {
-    cells.set(cell, potentialWinner);
+  function checkWin(potentialWinner, cells) {
     for (const pattern of VICTORY_PATTERNS) {
-      let winner = true;
+      let hasWinner = true;
       for (const point of pattern) {
         if (cells.get(point) !== potentialWinner) {
-          winner = false;
+          hasWinner = false;
           break;
         }
       }
 
-      if (winner) {
-        setWinner(winner && potentialWinner);
+      if (hasWinner) {
+        // setCells rerenders, so no need for a separate statae variable
+        winner = potentialWinner;
         break;
       }
     }
@@ -57,9 +58,9 @@ function App() {
     setCells((prev) => {
       const updatedMap = new Map(Array.from(prev));
       updatedMap.set(number, value);
+      checkWin(value, updatedMap);
       return updatedMap;
     });
-    checkWin(value, cells, number);
     setSelectedCell(undefined);
     setActivePlayer((current) => (current === 0 ? 1 : 0));
   }
@@ -75,8 +76,8 @@ function App() {
   }
 
   function handleNewGame() {
+    winner = undefined;
     setCells(new Map());
-    setWinner(undefined);
     setSelectedCell(undefined);
     setActivePlayer(0);
   }
