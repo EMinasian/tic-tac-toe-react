@@ -99,6 +99,7 @@ function App() {
               setPlayers={setPlayers}
               playerKey={playerKey}
               activePlayer={activePlayer}
+              key={playerKey}
             />
           ))}
         </ul>

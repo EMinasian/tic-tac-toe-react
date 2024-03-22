@@ -26,7 +26,7 @@ export default function Player({
   }
 
   return (
-    <div className={activePlayer === playerKey && "active-player"}>
+    <div className={activePlayer === playerKey ? "active-player" : ""}>
       <span className="player-name" id="player-name-display">
         {symbol}
       </span>

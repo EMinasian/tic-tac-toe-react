@@ -7,7 +7,7 @@ export default function Board() {
   return (
     <div className="game-board">
       {CELLS.map((cell) => (
-        <Cell number={cell} />
+        <Cell number={cell} key={cell} />
       ))}
     </div>
   );
