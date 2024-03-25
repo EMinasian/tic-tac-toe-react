@@ -4,7 +4,8 @@ import Board from "./components/Board";
 import Results from "./components/ResultsMessage";
 import ResultsBoard from "./components/ResultsBoard";
 import { BoardContextProvider } from "./contexts/BoardContext";
-import { CELLS, VICTORY_PATTERNS } from "./utils/constants";
+import { CELLS } from "./utils/constants";
+import checkWin from "./utils/checkWin";
 
 import "./Globals.css";
 
@@ -19,24 +20,6 @@ function App() {
   ]);
 
   const activePlayer = cells.size % 2 === 0 ? 0 : 1;
-
-  function checkWin(potentialWinner, cells) {
-    for (const pattern of VICTORY_PATTERNS) {
-      let hasWinner = true;
-      for (const point of pattern) {
-        if (cells.get(point) !== potentialWinner) {
-          hasWinner = false;
-          break;
-        }
-      }
-
-      if (hasWinner) {
-        // setCells rerenders, so no need for a separate statae variable
-        winner = potentialWinner;
-        break;
-      }
-    }
-  }
 
   function openModal(number) {
     if (typeof selectedCell === "number") {
@@ -59,7 +42,7 @@ function App() {
     setCells((prev) => {
       const updatedMap = new Map(Array.from(prev));
       updatedMap.set(number, value);
-      checkWin(value, updatedMap);
+      winner = checkWin(value, updatedMap);
       return updatedMap;
     });
     setSelectedCell(undefined);
