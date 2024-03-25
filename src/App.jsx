@@ -12,12 +12,13 @@ let winner;
 
 function App() {
   const [cells, setCells] = useState(new Map());
-  const [activePlayer, setActivePlayer] = useState(0);
   const [selectedCell, setSelectedCell] = useState(undefined);
   const [players, setPlayers] = useState([
     { name: "", symbol: "" },
     { name: "", symbol: "" },
   ]);
+
+  const activePlayer = cells.size % 2 === 0 ? 0 : 1;
 
   function checkWin(potentialWinner, cells) {
     for (const pattern of VICTORY_PATTERNS) {
@@ -62,7 +63,6 @@ function App() {
       return updatedMap;
     });
     setSelectedCell(undefined);
-    setActivePlayer((current) => (current === 0 ? 1 : 0));
   }
 
   function handleCellClick(number) {
@@ -79,7 +79,6 @@ function App() {
     winner = undefined;
     setCells(new Map());
     setSelectedCell(undefined);
-    setActivePlayer(0);
   }
 
   function handleReset() {
