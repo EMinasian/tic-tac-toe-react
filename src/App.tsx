@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { ReactNode, useState } from "react";
 import Player from "./components/Player";
 import Board from "./components/Board";
 import Results from "./components/ResultsMessage";
@@ -6,31 +6,32 @@ import ResultsBoard from "./components/ResultsBoard";
 import { BoardContextProvider } from "./contexts/BoardContext";
 import { CELLS } from "./utils/constants";
 import checkWin from "./utils/checkWin";
+import { PlayerType, CellsType } from "./utils/types/types";
 
 import "./Globals.css";
 
-let winner;
+let winner: string | undefined;
 
-function App() {
-  const [cells, setCells] = useState(new Map());
-  const [selectedCell, setSelectedCell] = useState(undefined);
-  const [players, setPlayers] = useState([
+function App(): ReactNode {
+  const [cells, setCells] = useState<CellsType>(new Map());
+  const [selectedCell, setSelectedCell] = useState<number | undefined>(undefined);
+  const [players, setPlayers] = useState<Array<PlayerType>>([
     { name: "", symbol: "" },
     { name: "", symbol: "" },
   ]);
 
-  const activePlayer = cells.size % 2 === 0 ? 0 : 1;
+  const activePlayer: number = cells.size % 2 === 0 ? 0 : 1;
 
-  function openModal(number) {
+  function openModal(number: number | undefined): void {
     if (typeof selectedCell === "number") {
       return;
     }
     setSelectedCell(number);
   }
 
-  function handleSelection(value, number) {
+  function handleSelection(value: string, number: number): void {
     if (!players[activePlayer]?.symbol) {
-      setPlayers((prev) => {
+      setPlayers((prev: Array<PlayerType>): Array<PlayerType> => {
         const updatedPlayers = [...prev];
         updatedPlayers[activePlayer].symbol = value;
         updatedPlayers[Number(activePlayer === 0)].symbol =
@@ -39,7 +40,7 @@ function App() {
       });
       players[activePlayer].symbol = value;
     }
-    setCells((prev) => {
+    setCells((prev: CellsType): CellsType => {
       const updatedMap = new Map(Array.from(prev));
       updatedMap.set(number, value);
       winner = checkWin(value, updatedMap);
@@ -48,7 +49,7 @@ function App() {
     setSelectedCell(undefined);
   }
 
-  function handleCellClick(number) {
+  function handleCellClick(number: number): void {
     if (winner) {
       return;
     } else if (!players[activePlayer]?.symbol) {
@@ -58,13 +59,13 @@ function App() {
     }
   }
 
-  function handleNewGame() {
+  function handleNewGame(): void {
     winner = undefined;
     setCells(new Map());
     setSelectedCell(undefined);
   }
 
-  function handleReset() {
+  function handleReset(): void {
     handleNewGame();
     setPlayers([
       { name: "", symbol: "" },
@@ -76,7 +77,7 @@ function App() {
     <div id="game-section">
       <div>
         <ul id="players-section">
-          {players.map((player, playerKey) => (
+          {players.map((player: PlayerType, playerKey: number): ReactNode => (
             <Player
               player={player}
               setPlayers={setPlayers}
@@ -86,7 +87,7 @@ function App() {
             />
           ))}
         </ul>
-        {(winner || cells.size === CELLS.length) && <Results winner={winner} />}
+        {(winner || cells.size === CELLS.length) && <Results winner={winner!} />}
         <BoardContextProvider
           value={{
             handleCellClick,
@@ -98,10 +99,10 @@ function App() {
         >
           <Board />
         </BoardContextProvider>
-        <button onClick={() => handleNewGame()}>
+        <button onClick={(): void => handleNewGame()}>
           {winner ? "Play again" : "Start again"}
         </button>
-        <button onClick={() => handleReset()}>Reset</button>
+        <button onClick={(): void => handleReset()}>Reset</button>
       </div>
       {/* <ResultsBoard /> */}
     </div>

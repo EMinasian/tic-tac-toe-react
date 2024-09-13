@@ -1,19 +1,26 @@
-import { useState, useRef } from "react";
+import React, { useState, useRef, ReactNode } from "react";
+import { PlayerType } from "../utils/types/types";
 
 export default function Player({
   player,
   setPlayers,
   playerKey,
   activePlayer,
-}) {
+}: {
+  player: PlayerType,
+  setPlayers: (arg: (prevPlayersarg: Array<PlayerType>) => Array<PlayerType>) => void;
+  playerKey: number;
+  activePlayer: number;
+
+}): ReactNode {
   const [isEditing, setIsEditing] = useState(false);
   const { name, symbol } = player;
 
   const inputRef = useRef();
 
-  function handleSave(e) {
+  function handleSave(e: React.SyntheticEvent): void {
     e.preventDefault();
-    setPlayers((prevPlayers) => {
+    setPlayers((prevPlayers: Array<PlayerType>): Array<PlayerType> => {
       const newPlayers = [...prevPlayers];
       newPlayers[playerKey].name = inputRef.current.value;
       return newPlayers;

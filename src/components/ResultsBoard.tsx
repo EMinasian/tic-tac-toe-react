@@ -1,3 +1,4 @@
+import React, { ReactNode } from "react";
 import checkMark from "../assets/green-check.png";
 import xMark from "../assets/red-x.png";
 import "../Globals.css"
@@ -8,7 +9,7 @@ const mockResults = [
   { game: 3, winner: "X" },
 ];
 
-export default function GameBoard() {
+export default function GameBoard(): ReactNode {
   return (
     <table id="result-table">
       <thead>

@@ -1,9 +1,9 @@
-import { useContext } from "react";
+import React, { ReactNode, useContext } from "react";
 import SelectionModal from "./SelectionModal";
 import { boardContext } from "../contexts/BoardContext";
 import "../Globals.css";
 
-export default function Cell({ number }) {
+export default function Cell({ number }: { number: number}): ReactNode {
   const { handleCellClick, cells, selectedCell } = useContext(boardContext);
   const symbol = cells.get(number);
 
