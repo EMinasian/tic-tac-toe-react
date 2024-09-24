@@ -6,7 +6,7 @@ import ResultsBoard from "./components/ResultsBoard";
 import { BoardContextProvider } from "./contexts/BoardContext";
 import { CELLS } from "./utils/constants";
 import checkWin from "./utils/checkWin";
-import { ActivePlayerType, PlayerType, CellsType } from "./utils/types/types";
+import { ActivePlayerType, PlayerType, CellsType, PlayerSymbolType } from "./utils/types/types";
 
 import "./Globals.css";
 
@@ -16,8 +16,8 @@ function App(): ReactNode {
   const [cells, setCells] = useState<CellsType>(new Map());
   const [selectedCell, setSelectedCell] = useState<number | undefined>(undefined);
   const [players, setPlayers] = useState<Array<PlayerType>>([
-    { name: "", symbol: "" },
-    { name: "", symbol: "" },
+    { name: "" },
+    { name: "" },
   ]);
 
   const activePlayer: ActivePlayerType = cells.size % 2 === 0 ? 0 : 1;
@@ -29,7 +29,7 @@ function App(): ReactNode {
     setSelectedCell(number);
   }
 
-  function handleSelection(value: string, number: number): void {
+  function handleSelection(value: PlayerSymbolType, number: number): void {
     if (!players[activePlayer]?.symbol) {
       setPlayers((prev: Array<PlayerType>): Array<PlayerType> => {
         const updatedPlayers = [...prev];
@@ -68,8 +68,8 @@ function App(): ReactNode {
   function handleReset(): void {
     handleNewGame();
     setPlayers([
-      { name: "", symbol: "" },
-      { name: "", symbol: "" },
+      { name: "" },
+      { name: "" },
     ]);
   }
 
