@@ -7,4 +7,4 @@ export type PlayerType = {
     symbol?: PlayerSymbolType;
 }
 
-export type CellsType = Map<number, string>
+export type CellsType = Map<number, PlayerSymbolType>
