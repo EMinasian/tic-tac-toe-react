@@ -1,3 +1,5 @@
+export type ActivePlayerType = 0 | 1
+
 export type PlayerType = {
     name: string;
     symbol: string;

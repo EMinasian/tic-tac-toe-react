@@ -6,7 +6,7 @@ import ResultsBoard from "./components/ResultsBoard";
 import { BoardContextProvider } from "./contexts/BoardContext";
 import { CELLS } from "./utils/constants";
 import checkWin from "./utils/checkWin";
-import { PlayerType, CellsType } from "./utils/types/types";
+import { ActivePlayerType, PlayerType, CellsType } from "./utils/types/types";
 
 import "./Globals.css";
 
@@ -20,7 +20,7 @@ function App(): ReactNode {
     { name: "", symbol: "" },
   ]);
 
-  const activePlayer: number = cells.size % 2 === 0 ? 0 : 1;
+  const activePlayer: ActivePlayerType = cells.size % 2 === 0 ? 0 : 1;
 
   function openModal(number: number | undefined): void {
     if (typeof selectedCell === "number") {
