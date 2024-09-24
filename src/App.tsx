@@ -10,7 +10,7 @@ import { PlayerType, CellsType } from "./utils/types/types";
 
 import "./Globals.css";
 
-let winner: string | undefined;
+let winner: string | null;
 
 function App(): ReactNode {
   const [cells, setCells] = useState<CellsType>(new Map());
@@ -60,7 +60,7 @@ function App(): ReactNode {
   }
 
   function handleNewGame(): void {
-    winner = undefined;
+    winner = null;
     setCells(new Map());
     setSelectedCell(undefined);
   }
@@ -87,7 +87,7 @@ function App(): ReactNode {
             />
           ))}
         </ul>
-        {(winner || cells.size === CELLS.length) && <Results winner={winner!} />}
+        {(winner || cells.size === CELLS.length) && <Results winner={winner} />}
         <BoardContextProvider
           value={{
             handleCellClick,

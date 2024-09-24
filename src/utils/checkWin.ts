@@ -1,7 +1,7 @@
 import { VICTORY_PATTERNS } from "./constants";
 import { CellsType } from "./types/types";
 
-export default function checkWin(potentialWinner: string, cells: CellsType): string | undefined {
+export default function checkWin(potentialWinner: string, cells: CellsType): string | null {
   for (const pattern of VICTORY_PATTERNS) {
     let hasWinner = true;
     for (const point of pattern) {
@@ -16,4 +16,5 @@ export default function checkWin(potentialWinner: string, cells: CellsType): str
       return potentialWinner;
     }
   }
+  return null
 }
