@@ -1,5 +1,6 @@
 import React, { ReactNode, useContext } from "react";
 import { boardContext } from "../contexts/BoardContext";
+import { PlayerValue } from "../utils/types/types";
 
 import "../Globals.css";
 
@@ -9,11 +10,11 @@ export default function SelectionModal({ number }: { number: number }): ReactNod
   return (
     <div className="selection-modal">
       <div>
-        <button id="x-button" onClick={() => handleSelection("X", number)}>
+        <button id="x-button" onClick={() => handleSelection(PlayerValue.VALUEX, number)}>
           X
         </button>
         or
-        <button id="o-button" onClick={() => handleSelection("O", number)}>
+        <button id="o-button" onClick={() => handleSelection(PlayerValue.VALUEO, number)}>
           O
         </button>
       </div>

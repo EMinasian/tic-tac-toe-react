@@ -1,6 +1,16 @@
-export type ActivePlayerType = 0 | 1
+export const enum PlayerValue {
+    VALUEX = "X",
+    VALUEO = "O"
+}
 
-export type PlayerSymbolType = 'X' | 'O'
+export const enum ActivePlayerValue {
+    VALUE0,
+    VALUE1
+}
+
+export type ActivePlayerType = ActivePlayerValue.VALUE0 | ActivePlayerValue.VALUE1
+
+export type PlayerSymbolType = PlayerValue.VALUEX | PlayerValue.VALUEO
 
 export type PlayerType = {
     name: string;
@@ -8,3 +18,6 @@ export type PlayerType = {
 }
 
 export type CellsType = Map<number, PlayerSymbolType>
+
+
+
